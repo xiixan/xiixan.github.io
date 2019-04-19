@@ -70,6 +70,87 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-垃圾回收机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2019/04/18/垃圾回收机制/" class="article-date">
+  <time datetime="2019-04-19T02:52:55.717Z" itemprop="datePublished">2019-04-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h1><h2 id="JVM模型："><a href="#JVM模型：" class="headerlink" title="JVM模型："></a>JVM模型：</h2><ol>
+<li>方法区（永久带）线程共享 很少垃圾回收 redhot未实现回收 也会发生类的卸载（回收）</li>
+<li>堆 线程共享 垃圾回收的主要战场 对象实例华存储地址 分为青老代 安代实行不同的回收策略</li>
+<li>栈 线程独有 局部参数的入栈出栈 方法地址的入栈出栈 连续地址</li>
+<li>本地方法栈 线程独有 主要执行native本地方法 有些虚拟机实现会将虚拟机栈和本地方法栈合并 </li>
+<li>程序计数器 线程独有 标记代码偏移量 不会发生内存溢出异常</li>
+</ol>
+<h2 id="垃圾回收分代"><a href="#垃圾回收分代" class="headerlink" title="垃圾回收分代"></a>垃圾回收分代</h2><h3 id="青年代-MinorGC-YoungGC"><a href="#青年代-MinorGC-YoungGC" class="headerlink" title="青年代 MinorGC/YoungGC"></a>青年代 MinorGC/YoungGC</h3><p>存在三个区Eden（伊甸区）、Survivor0、Survivor1</p>
+<ul>
+<li>大多数刚刚创建的对象将在Eden区，大多数又很快消亡</li>
+<li>Eden区满触发YoungGC，存活保留在Survivor0或者Survivor1</li>
+<li>Survivor0和Survivor1总有一个保持为空白，用与存活对象的回收后整理空间</li>
+<li>工作Survivor区满后，回收复制到空闲Survivor区，切换15次（可通过jvm启动参数配置-XX：MaxTenuringThreshold）后，存活对象进入老年代</li>
+<li>大对象（大小可配置-XX：PretenureSizeThreshold）可直接升级为老年代<h3 id="老年代-MajorGC-FullGC"><a href="#老年代-MajorGC-FullGC" class="headerlink" title="老年代 MajorGC/FullGC"></a>老年代 MajorGC/FullGC</h3>老年代满了后触发FullGC</li>
+</ul>
+<h2 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h2><p>青年代重要使用停止复制算法，老年代主要使用标记删除算法</p>
+<ol>
+<li>Serial</li>
+<li>ParNew ：Serial 多线程版</li>
+<li>Parallel Scavenge：关注CPU吞吐量</li>
+<li>Serial Old</li>
+<li>Parallel Old：多线程</li>
+<li>CMS：并发回收</li>
+<li>G1</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.superface.site/2019/04/18/垃圾回收机制/" data-id="cjunhbrvv0000e5e33i3hv6pm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-我来了" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2019/04/18/我来了/" class="article-date">
+  <time datetime="2019-04-19T02:52:55.717Z" itemprop="datePublished">2019-04-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="我来了"><a href="#我来了" class="headerlink" title="# 我来了"></a># 我来了</h1><p>筹备许久的个人博客，终于在今天得以书写。<br>写博客的目的呢，即是为了记录自己的内心活动吧，也是随波逐流，紧跟时代大潮流吧。也是为了记录一些学习的过程，便于沉淀和总结。</p>
+<p>第一篇呢，那就先自我介绍一下吧：我是一个来自远山深处的程序员，有着忧郁，有着逗比，有着风趣，有着脆弱。总体来看，是一个值得深交滴人（你确定不要试试，我可甜可咸）。</p>
+<p>写了这么点呢，也就写完了，觉得有点少，但也不知道接下去可以说写什么，就以这篇初来乍到为基础，正式开启我的博客之旅啦。</p>
+<p>各位，很高兴见到你哟。😄</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.superface.site/2019/04/18/我来了/" data-id="cjunhbrw90001e5e3ganvr8rl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="2019/04/18/hello-world/" class="article-date">
@@ -144,6 +225,14 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="2019/04/18/垃圾回收机制/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="2019/04/18/我来了/">(no title)</a>
+          </li>
         
           <li>
             <a href="2019/04/18/hello-world/">Hello World</a>
